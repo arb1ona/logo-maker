@@ -1,12 +1,16 @@
 import "./App.css";
-import { Button } from "./components/ui/button";
+import Header from "./components/Header";
+import SideNav from "./components/SideNav";
 
 function App() {
 	return (
-		<>
-			<h1 className="text-3xl font-bold underline">Hello world!</h1>
-			<Button variant="outline">Click me</Button>
-		</>
+		<div className="p-0">
+			<Header />
+			<div className="w-64 fixed">
+				<SideNav selectedIndex={(value) => console.log(value)} />
+			</div>
+			<div className="ml-64">Body</div>
+		</div>
 	);
 }
 
