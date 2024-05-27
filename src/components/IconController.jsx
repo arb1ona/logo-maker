@@ -64,6 +64,7 @@ const IconController = () => {
 					<ColorPickerController
 						hideSettings={true}
 						selectedColor={(color) => setColor(color)}
+						value={color}
 					/>
 				</div>
 			</div>

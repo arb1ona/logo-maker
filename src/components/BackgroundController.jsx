@@ -6,7 +6,7 @@ import { UpdateStorageContext } from "@/context/UpdateStorageContext";
 const BackgroundController = () => {
 	const [rounded, setRounded] = useState(12);
 	const [padding, setPadding] = useState(62);
-	const [color, setColor] = useState("#000");
+	const [color, setColor] = useState("rgba(0,0,0,1)");
 
 	const storageValue = JSON.parse(localStorage.getItem("value"));
 	const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
@@ -57,6 +57,7 @@ const BackgroundController = () => {
 					<ColorPickerController
 						hideSettings={false}
 						selectedColor={(color) => setColor(color)}
+						value={color}
 					/>
 				</div>
 			</div>
