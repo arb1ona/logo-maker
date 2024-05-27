@@ -1,8 +1,9 @@
 import { UpdateStorageContext } from "@/context/UpdateStorageContext";
+import html2canvas from "html2canvas";
 import { icons } from "lucide-react";
 import { useContext, useEffect, useState } from "react";
 
-const LogoPreview = () => {
+const LogoPreview = ({ downloadIcon }) => {
 	const [storageValue, setStorageValue] = useState();
 	const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
@@ -11,6 +12,24 @@ const LogoPreview = () => {
 		console.log(storageData);
 		setStorageValue(storageData);
 	}, [updateStorage]);
+
+	useEffect(() => {
+		if (downloadIcon) {
+			downloadLogo();
+		}
+	}, [downloadIcon]);
+
+	const downloadLogo = () => {
+		const downloadLogoId = document.getElementById("downloadLogoId");
+
+		html2canvas(downloadLogoId, { backgroundColor: null }).then((canvas) => {
+			const pngImage = canvas.toDataURL("image/png");
+			const downloadLink = document.createElement("a");
+			downloadLink.href = pngImage;
+			downloadLink.download = "Arbiona's_Logo_Maker";
+			downloadLink.click();
+		});
+	};
 
 	const Icon = ({ name, color, size, rotate }) => {
 		const LucidIcon = icons[name];
@@ -34,6 +53,7 @@ const LogoPreview = () => {
 			>
 				{/* render icon */}
 				<div
+					id="downloadLogoId"
 					className="h-full w-full flex items-center justify-center"
 					style={{
 						borderRadius: storageValue?.bgRounded,
