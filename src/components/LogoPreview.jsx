@@ -19,7 +19,6 @@ const LogoPreview = () => {
 		}
 		return (
 			<LucidIcon
-				name={name}
 				color={color}
 				size={size}
 				style={{ transform: `rotate(${rotate}deg)` }}

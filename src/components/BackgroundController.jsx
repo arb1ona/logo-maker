@@ -4,11 +4,12 @@ import ColorPickerController from "./ColorPickerController";
 import { UpdateStorageContext } from "@/context/UpdateStorageContext";
 
 const BackgroundController = () => {
-	const [rounded, setRounded] = useState(12);
-	const [padding, setPadding] = useState(62);
-	const [color, setColor] = useState("rgba(0,0,0,1)");
-
 	const storageValue = JSON.parse(localStorage.getItem("value"));
+
+	const [rounded, setRounded] = useState(storageValue?.bgRounded ?? 10);
+	const [padding, setPadding] = useState(storageValue?.bgPadding ?? 50);
+	const [color, setColor] = useState(storageValue?.bgColor ?? "#000");
+
 	const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
 	useEffect(() => {
@@ -31,7 +32,7 @@ const BackgroundController = () => {
 						Rounded <span>{rounded} px</span>
 					</label>
 					<Slider
-						defaultValue={[12]}
+						defaultValue={[rounded]}
 						max={100}
 						step={1}
 						onValueChange={(event) => setRounded(event[0])}
@@ -43,14 +44,14 @@ const BackgroundController = () => {
 						Padding <span>{padding} px</span>
 					</label>
 					<Slider
-						defaultValue={[62]}
+						defaultValue={[padding]}
 						max={100}
 						step={1}
 						onValueChange={(event) => setPadding(event[0])}
 					/>
 				</div>
 
-				<div className="py-2">
+				<div className="py-2 mb-32">
 					<label className="p-2 flex justify-between items-center">
 						Item color
 					</label>
