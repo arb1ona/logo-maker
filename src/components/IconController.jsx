@@ -3,6 +3,7 @@ import { Slider } from "@/components/ui/slider";
 import { useContext, useEffect, useState } from "react";
 import ColorPickerController from "./ColorPickerController";
 import { UpdateStorageContext } from "@/context/UpdateStorageContext";
+import IconList from "./IconList";
 
 const IconController = () => {
 	const storageValue = JSON.parse(localStorage.getItem("value"));
@@ -14,6 +15,9 @@ const IconController = () => {
 	const [color, setColor] = useState(
 		storageValue ? storageValue?.iconColor : "#fff"
 	);
+	const [icon, setIcon] = useState(
+		storageValue ? storageValue?.iconName : "Smile"
+	);
 
 	const { updateStorage, setUpdateStorage } = useContext(UpdateStorageContext);
 
@@ -23,20 +27,16 @@ const IconController = () => {
 			iconSize: size,
 			iconRotate: rotate,
 			iconColor: color,
-			iconName: "Smile",
+			iconName: icon,
 		};
 
 		setUpdateStorage(updatedValue);
 		localStorage.setItem("value", JSON.stringify(updatedValue));
-	}, [size, rotate, color]);
+	}, [size, rotate, color, icon]);
 
 	return (
 		<div>
-			<label>Icon</label>
-			<div className="p-3 cursor-pointer bg-gray-200 rounded-md w-[50px] h-[50px] my-2 flex items-center justify-center">
-				<Smile />
-			</div>
-
+			<IconList selectedIcon={(icon) => setIcon(icon)} />
 			<div className="py-2">
 				<label className="p-2 flex justify-between items-center">
 					Size <span>{size} px</span>
